@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+  web:
+    build: ./web #Dockerfileのあるパスを指定する
+    volumes:
+      - ./web/html:/var/www/html #パスをマウント <HostPath>:<Container Path>
+    ports:
+      - 80:80 #ポートを公開 <Host IP>:<Host Port>:<Container Port>
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8
+    volumes:
+      - ./mysql/mysql:/var/lib/mysql
+      - ./mysql/config/my.cnf:/etc/mysql/conf.d/my.cnf
+    environment:
+      - MYSQL_ROOT_PASSWORD=root #適切に変更
+      - MYSQL_DATABASE=test_db
+      - MYSQL_USER=test_user
+      - MYSQL_PASSWORD=test_password #適切に変更
+    ports:
+      - 3306:3306
+
