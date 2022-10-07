@@ -22,3 +22,12 @@ services:
     ports:
       - 3306:3306
 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    environment:
+      PMA_HOST: "mysql"
+      PMA_USER: "test_user"
+      PMA_PASSWORD: "test_password"
+    ports:
+      - 8080:80
+
