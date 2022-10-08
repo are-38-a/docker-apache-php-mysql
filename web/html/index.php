@@ -58,7 +58,6 @@ function createTableForBBS(PDO $pdo, $TABLE_NAME): bool {
 
 /**
  * 書き込みを読み込んで表示
- * todo: エスケープする
  * 
  * @param PDO $db
  * @param string $TABLE_NAME
@@ -213,7 +212,6 @@ function deletePost(PDO $pdo, string $TABLE_NAME, $id, $password): string{
 
 <body>
     <h1>掲示板</h1>
-
     <?php
         $errMsg = "";
         $mes = "";
