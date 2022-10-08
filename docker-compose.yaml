@@ -1,16 +1,20 @@
 version: "3.9"
 services:
   web:
-    build: ./web #Dockerfileのあるパスを指定する
+    build:
+      context: ./web #DockerfileをBuildする時のパスの起点が変わる
+      dockerfile: ./Dockerfile #Dockerfileのあるパスを指定する
     volumes:
       - ./web/html:/var/www/html #パスをマウント <HostPath>:<Container Path>
     ports:
-      - 80:80 #ポートを公開 <Host IP>:<Host Port>:<Container Port>
+      - ${WEB_PORT}:80 #ポートを公開 <Host IP>:<Host Port>:<Container Port>
     depends_on:
       - mysql
 
   mysql:
-    image: mysql:8
+    build:
+      context: ./mysql
+      dockerfile: ./Dockerfile
     volumes:
       - ./mysql/mysql:/var/lib/mysql
       - ./mysql/config/my.cnf:/etc/mysql/conf.d/my.cnf
@@ -20,14 +24,16 @@ services:
       - MYSQL_USER=test_user
       - MYSQL_PASSWORD=test_password #適切に変更
     ports:
-      - 3306:3306
+      - ${MYSQL_PORT}:3306
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
+    build:
+      context: ./phpmyadmin
+      dockerfile: ./Dockerfile
     environment:
       PMA_HOST: "mysql"
       PMA_USER: "test_user"
       PMA_PASSWORD: "test_password"
     ports:
-      - 8080:80
+      - ${PMA_PORT}:80
 
