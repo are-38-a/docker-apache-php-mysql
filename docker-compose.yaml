@@ -20,8 +20,8 @@ services:
       - ./mysql/config/my.cnf:/etc/mysql/conf.d/my.cnf
     environment:
       - MYSQL_ROOT_PASSWORD=root #適切に変更
-      - MYSQL_DATABASE=test_db
-      - MYSQL_USER=test_user
+      - MYSQL_DATABASE=test_db #適切に変更
+      - MYSQL_USER=test_user #適切に変更
       - MYSQL_PASSWORD=test_password #適切に変更
     ports:
       - ${MYSQL_PORT}:3306
@@ -32,8 +32,8 @@ services:
       dockerfile: ./Dockerfile
     environment:
       PMA_HOST: "mysql"
-      PMA_USER: "test_user"
-      PMA_PASSWORD: "test_password"
+      PMA_USER: "test_user" #適切に変更
+      PMA_PASSWORD: "test_password" #適切に変更
     ports:
       - ${PMA_PORT}:80
 
